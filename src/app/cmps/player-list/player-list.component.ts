@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 import { Filter, Player } from 'src/app/models/index';
 
@@ -23,6 +24,7 @@ export class PlayerListComponent {
     players!: Player[]
     page: number = 0;
     pageSize: number = 80;
+    filter!: Filter
 
     positionsData = [
       {pos: 'C', text: 'Centers'},
@@ -32,7 +34,7 @@ export class PlayerListComponent {
       {pos: 'PG', text: 'Point Guards'},
     ]
 
-    selectedPos: string = 'PG';
+    
 
     ngOnInit() {
         this.PlayersService.query()
@@ -42,24 +44,23 @@ export class PlayerListComponent {
         })
 
         this.playersFilterSub = this.PlayersService.playersFilter$.subscribe((filter: Filter) => {
-            this.selectedPos = filter.pos
+            this.filter = filter
         })
 
     }
 
-    selectPos(pos: string) {
-        this.selectedPos = pos;
-        this.PlayersService.setFilter({pos})
+    setFilter(filterType: String, content?: any) {
+        if (filterType === 'pos') this.PlayersService.setFilter({pos: content} as Filter)
+        if (filterType === 'isDescending') this.PlayersService.setFilter({isDescending: !this.filter.isDescending} as Filter)
+        if (filterType === 'name') this.PlayersService.setFilter({name: this.filter.name} as Filter)
     }
-
 
     selectPlayer(player: Player) { 
         const pos = player.pos  
         this.UserService.addPlayer(player)
-
     }
 
     id(index: number, item: Player){
         return item.id; 
-     }
+    }
 }

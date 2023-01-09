@@ -1,5 +1,6 @@
 import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root-app/app.component';
@@ -12,8 +13,6 @@ import { BasketballCourtComponent } from './cmps/basketball-court/basketball-cou
 import { PlayersIndexComponent } from './views/players-index/players-index.component';
 import { LineUpComponent } from './cmps/line-up/line-up.component';
 
-
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -22,12 +21,13 @@ import { LineUpComponent } from './cmps/line-up/line-up.component';
         PlayerPreviewComponent,
         BasketballCourtComponent,
         PlayersIndexComponent,
-        LineUpComponent
+        LineUpComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

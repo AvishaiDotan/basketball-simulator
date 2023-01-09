@@ -1,6 +1,13 @@
 <section class="line-up">
-    <div>Center</div>
-    <div>Center</div>
-    <div>Center</div>
-    <div>Center</div>
+    <article *ngFor="let player of lineUp" >
+        <section *ngIf="player" class="player-card player flex column align-center">
+            <h2>{{player.skillLevel}} | {{player.pos}}</h2>
+            <img [src]="player.picture.large" alt="">
+            <section class="actions-overlay">
+                <span><i class="bi bi-pen"></i></span>
+                <span><i class="bi bi-x"></i></span>
+                <span><i class="bi bi-bookmark-star"></i></span>
+            </section>
+        </section>
+    </article>
 </section>

@@ -17,7 +17,7 @@ export class PlayersService {
     private _playersDB$ = new BehaviorSubject([]);
     public playersDB$ = this._playersDB$.asObservable()
 
-    private _playersFilter$ = new BehaviorSubject<Filter>({ pos: 'PG' });
+    private _playersFilter$ = new BehaviorSubject<Filter>({ pos: 'PG', name: '', isDescending: false });
     public playersFilter$ = this._playersFilter$.asObservable()
 
     public async query() {
@@ -32,9 +32,9 @@ export class PlayersService {
             this._playersDB$.next(formattedData)
             return
         }
-
-        const filteredData = storedPlayers.filter(({ pos }: any) => pos === this._playersFilter$.getValue().pos)
-        this._playersDB$.next(filteredData)   
+        const filteredPlayers = this.filteredPlayers(storedPlayers)
+        
+        this._playersDB$.next(filteredPlayers as any)   
     }
 
     public loadPlayers() {
@@ -56,6 +56,21 @@ export class PlayersService {
         }).filter(({ gender }: any) => gender === 'male')
     }
 
+    private filteredPlayers(players: Player[]) {
+        const filter = this._playersFilter$.getValue()
+
+        return players.filter((player: Player) => {
+            let isPos, isName
+
+            isPos = (filter.pos) ? (player.pos === filter.pos) : true
+            isName = (filter.name) ? ((player.name.first+player.name.last).toLowerCase().includes(filter.name.toLowerCase())) : true 
+
+            return isPos && isName
+        }).sort((p1, p2) => {
+            return (filter.isDescending) ? p1.skillLevel - p2.skillLevel : p2.skillLevel - p1.skillLevel
+        })
+    }
+
     public getPos() {
         if (Math.random() > 0.8) return 'C'
         if (Math.random() > 0.6) return 'PF'
@@ -65,7 +80,8 @@ export class PlayersService {
     }
 
     public setFilter(filter: Filter) {
-        this._playersFilter$.next(filter)
+        const updatedFilter = {...this._playersFilter$.getValue(), ...filter}
+        this._playersFilter$.next(updatedFilter)  
         this.query()
     }
 }

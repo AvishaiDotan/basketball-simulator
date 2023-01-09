@@ -1,3 +1,5 @@
 export interface Filter {
-    pos: string;
+    pos?: string;
+    isDescending?: boolean;
+    name?: string;
 }

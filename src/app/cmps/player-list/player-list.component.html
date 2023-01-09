@@ -1,8 +1,13 @@
 <section class="players-list-wrapper">
     <section class="list-actions">
-        <div *ngFor="let posData of positionsData" (click)="selectPos(posData.pos)" [ngStyle]="{color: (selectedPos === posData.pos) ? '#c19d33' : ''}">{{posData.text}}</div>
-        <div class="filter-sort">
-
+        <section class="pos-filter">
+            <div *ngFor="let posData of positionsData" (click)="setFilter('pos', posData.pos)" [ngStyle]="{color: (filter.pos === posData.pos) ? '#c19d33' : ''}">{{posData.text}}</div>
+        </section>
+        <div class="filter-actions">
+            <label for="name">
+                <input [(ngModel)]="filter.name" (ngModelChange)="setFilter('name')" type="text" id="name">
+            </label>
+            <button (click)="setFilter('isDescending')">Sort</button>
         </div>
     </section>
 

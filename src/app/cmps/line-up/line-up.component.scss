@@ -1,3 +1,51 @@
+@import '../../../styles.scss';
+
 :host {
     flex-basis: 50%;
+}
+
+.line-up {
+    margin-block-start: 50px;
+    display: grid;
+    grid-template-columns: repeat(5, min-content);
+    justify-content: space-evenly;
+
+    .player {
+        background-color: white;
+        padding: 5px;
+        font-size: 20px;
+        border-radius: 2px;
+        position: relative;
+        transition: height 0.3s;
+        max-height: 145px;
+        overflow-y: hidden;
+
+        .actions-overlay {
+            background-color: $clr2;
+            border-block-start: #27272777 5px solid;
+            transform: translateY(0%);
+            transition: 0.3s;
+            padding-block: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: $clr-1;
+            
+            span {
+                transition: 0.4s;
+            }
+
+            span:hover {
+                color: white;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            .actions-overlay {
+                transform: translateY(-90%);
+            }
+        }
+    }
 }
