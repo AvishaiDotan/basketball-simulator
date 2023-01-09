@@ -1,0 +1,19 @@
+<article class="player-preview" (click)="selectPlayer()">
+    <img [src]="player.picture.large" alt="">
+    <div class="player-data">
+        <div>
+            <p>
+                <span>{{ player.city.slice(0, 3) }} | </span>
+                <span>{{ player.pos }}</span>
+            </p>
+            <h2>
+                <span>{{ player.name.first }} </span>
+                <br>
+                <span>{{ player.name.last }}</span>
+            </h2>
+            
+        </div>
+    </div>
+    <h3>{{ player.skillLevel }}</h3>
+
+</article>

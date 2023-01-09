@@ -1,0 +1,39 @@
+@import '../../../styles.scss';
+
+:host {
+    flex-basis: 50%;
+}
+
+.players-list-wrapper  {
+    width: 100%;
+    transform: translateY(-4px);
+    background-color: #cbcbcb;
+    border-inline-end: 5px solid $clrPrimaryDarker;
+
+    animation: movingBorder 10s infinite;
+
+    height: calc(100vh - 124px);
+    overflow-y: auto;
+
+    .list-actions {
+        height: 60px;
+        display: flex;
+        justify-content: space-evenly;
+        font-family: Roboto-regular;
+        align-items: center;
+
+        > div {
+
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s;
+
+            &:hover {
+                cursor: pointer;
+                color: $clrPrimaryDarker;
+            }
+        }
+    }
+}

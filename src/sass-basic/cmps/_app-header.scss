@@ -1,0 +1,18 @@
+.main-header {
+    padding-block: 20px;
+
+    @include for-tablet-layout {
+        padding-block: 40px;
+    }
+
+    // @include for-desktop-layout {
+    //     padding-inline: 80px;
+    //     padding-block: 40px;
+    //     margin-inline-end: 160px;
+    // }
+
+    .logo {
+        font-family: Inconsolata-Regular;
+        font-size: rem(24px);
+    }
+}

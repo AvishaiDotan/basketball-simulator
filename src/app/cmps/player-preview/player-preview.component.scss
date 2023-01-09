@@ -1,0 +1,52 @@
+@import '../../../styles.scss';
+
+.player-preview {
+    gap: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: center;
+    min-height: 90px;
+    padding-inline: 10px;
+    transition: 0.3s;
+
+    img {
+        border-radius: 50%;
+        width: 50%;
+        transition: 0.3s;
+    }
+
+    .player-data {
+        text-align: left;
+
+        p {
+            color: $clr1
+        }
+
+        h2 {
+            font-size: rem(25px);
+            text-transform: uppercase;
+            font-family: Roboto-Medium;
+        }
+    }
+
+    h3 {
+        font-size: 2.3rem;
+        text-transform: uppercase;
+        align-self: center;
+        position: absolute;
+        right: 20px;
+        font-family: Roboto-black;
+
+    }
+
+    
+    &:hover {
+        background-color: $clrPrimary;
+        cursor: pointer;
+
+        img {
+            transform: scale(1.05);
+        }
+    }
+}

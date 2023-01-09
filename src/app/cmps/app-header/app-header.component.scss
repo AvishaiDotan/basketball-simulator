@@ -1,0 +1,12 @@
+@import '../../../styles.scss';
+
+.app-header  {
+    height: 120px;
+    background-color: $clrPrimary;
+    font-family: Roboto-Black, Helvetica, sans-serif;
+    font-size: rem(36px);
+    font-weight: 900;
+    color: $clr2;
+    border-block-end: 4px solid $clrPrimaryDarker;
+    letter-spacing: -3px;
+}

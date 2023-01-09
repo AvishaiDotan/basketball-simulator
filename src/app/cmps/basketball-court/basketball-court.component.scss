@@ -1,0 +1,83 @@
+@import '../../../styles.scss';
+
+:host {
+    .court-container {
+        svg {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 600px;
+
+        }
+
+        ul {
+            
+            .player {
+
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                
+            }
+
+            &.group1 .player {
+                background-color: orange;
+            }
+            &.group2 .player {
+                background-color: red;
+            }
+        }
+
+        ul.group1 {
+            transform: translate(182px, -307px);
+            .player1 {
+                animation: moveType1 10s infinite;
+            }
+            .player2 {
+                animation: moveType2 20s infinite;
+            }
+            .player3 {
+                animation: moveType3 15s infinite;
+            }
+            .player4 {
+                animation: moveType4 8s infinite;
+            }
+            .player5 {
+                animation: moveType5 6s infinite;
+            }
+        }
+
+        ul.group2 {
+            transform: translate(182px, -380px);
+            .player1 {
+                animation: moveType6 10s infinite;
+            }
+            .player2 {
+                animation: moveType7 20s infinite;
+            }
+            .player3 {
+                animation: moveType8 15s infinite;
+            }
+            .player4 {
+                animation: moveType9 8s infinite;
+            }
+            .player5 {
+                animation: moveType10 6s infinite;
+            }
+        }
+
+
+
+        @include animation-mixin(moveType1, 100px, -50px);
+        @include animation-mixin(moveType2, 10px, -20px);
+        @include animation-mixin(moveType3, 10px, -20px);
+        @include animation-mixin(moveType4, 0px, 100px);
+        @include animation-mixin(moveType5, -50px, 50px);
+        @include animation-mixin(moveType6, 11px, -11px);
+        @include animation-mixin(moveType7, 77px, -0px);
+        @include animation-mixin(moveType8, 1px, -2px);
+        @include animation-mixin(moveType9, 55px, 55px);
+        @include animation-mixin(moveType10, -10px, 10px);
+    }
+
+}
