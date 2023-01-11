@@ -1,0 +1,50 @@
+<section class="edit-player">
+    <form [formGroup]="form">
+        <h2>{{true ? 'Edit' : 'Add'}} Player</h2>
+        <img src="" alt="">
+
+        <label class="name" formGroupName="name" for="name">
+            <input formControlName="first" name="name" id="name" placeholder="First name" />
+            <input formControlName="last" placeholder="Last name" />
+        </label>
+
+        <label formGroupName="picture" for="large">
+            <input formControlName="large" type="url" id="large">
+        </label>
+
+        <section class="player-data">
+
+            <label for="gender">
+                <select formControlName="gender" name="gender" id="gender">
+                    <option value="" disabled>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </label>
+
+            <label for="skillLevel">
+                <input formControlName="skillLevel" type="number" max="100" min="0" name="skillLevel" id="skillLevel">
+            </label>
+
+            <label for="age">
+                <input formControlName="age" type="number" max="100" min="0" name="age" id="age">
+            </label>
+
+
+            <label for="pos">
+                <select formControlName="pos" name="pos" id="pos">
+                    <option value="" disabled>Select Position</option>
+                    <option value="PG">PG</option>
+                    <option value="G">G</option>
+                    <option value="F">F</option>
+                    <option value="PF">PF</option>
+                    <option value="C">C</option>
+
+                </select>
+            </label>
+
+        </section>
+
+
+    </form>
+</section>

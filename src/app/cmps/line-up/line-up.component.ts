@@ -4,6 +4,7 @@ import { Player } from 'src/app/models';
 import { Subscription } from 'rxjs';
 
 import { UserService } from 'src/app/service/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'line-up',
@@ -13,7 +14,11 @@ import { UserService } from 'src/app/service/user.service';
 export class LineUpComponent implements OnInit, OnDestroy {
 
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private router: Router
+        
+    ) {}
 
     playersSub!: Subscription
 
@@ -43,6 +48,10 @@ export class LineUpComponent implements OnInit, OnDestroy {
              
         })
         return orderedLineUp
+    }
+
+    editPlayer(id: string) {
+        this.router.navigate(['players/edit/', id])
     }
 
 

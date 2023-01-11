@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, lastValueFrom, map, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, map, Observable, of, Subscription } from 'rxjs';
 
 import { Filter, Player } from '../models';
 
@@ -33,12 +33,38 @@ export class PlayersService {
             return
         }
         const filteredPlayers = this.filteredPlayers(storedPlayers)
-        
-        this._playersDB$.next(filteredPlayers as any)   
+
+        this._playersDB$.next(filteredPlayers as any)
+    }
+
+    public getPlayerById(playerId: string): Observable<Player> | Observable<null> {
+        const player = this._playersDB$.getValue().find(({ id }) => id === playerId)
+        return (player) ? of({ ...player as Player }) : of()
+    }
+
+    public getEmptyPlayer(): Player {
+        return {
+            gender: '',
+            id: '',
+            name: {
+                title: '',
+                first: '',
+                last: '',
+            },
+            city: '',
+            age: 0,
+            picture: {
+                large: '',
+                medium: '',
+                thumbnail: '',
+            },
+            skillLevel: 0,
+            pos: '',
+        }
     }
 
     public loadPlayers() {
-        return this.http.get<any>('https://randomuser.me/api/?results=100')
+        return this.http.get<any>('https://randomuser.me/api/?results=1000')
     }
 
     private formatData({ results }: any) {
@@ -49,7 +75,7 @@ export class PlayersService {
                 city: result.location.country + ', ' + result.location.city,
                 age: (result.dob.age >= 40) ? result.dob.age / 2 : result.dob.age,
                 picture: result.picture,
-                id: result.id.name + '-' + result.id.value,
+                id: UtilService.makeId(),
                 skillLevel: UtilService.getRandomNumber(),
                 pos: this.getPos()
             }
@@ -63,7 +89,7 @@ export class PlayersService {
             let isPos, isName
 
             isPos = (filter.pos) ? (player.pos === filter.pos) : true
-            isName = (filter.name) ? ((player.name.first+player.name.last).toLowerCase().includes(filter.name.toLowerCase())) : true 
+            isName = (filter.name) ? ((player.name.first + player.name.last).toLowerCase().includes(filter.name.toLowerCase())) : true
 
             return isPos && isName
         }).sort((p1, p2) => {
@@ -71,17 +97,14 @@ export class PlayersService {
         })
     }
 
-    public getPos() {
-        if (Math.random() > 0.8) return 'C'
-        if (Math.random() > 0.6) return 'PF'
-        if (Math.random() > 0.4) return 'F'
-        if (Math.random() > 0.2) return 'G'
-        return 'PG'
+    private getPos() {
+        const positions = ['C', 'PF', 'F', 'G', 'PG'];
+        return positions[Math.floor(Math.random() * positions.length)];
     }
 
     public setFilter(filter: Filter) {
-        const updatedFilter = {...this._playersFilter$.getValue(), ...filter}
-        this._playersFilter$.next(updatedFilter)  
+        const updatedFilter = { ...this._playersFilter$.getValue(), ...filter }
+        this._playersFilter$.next(updatedFilter)
         this.query()
     }
 }

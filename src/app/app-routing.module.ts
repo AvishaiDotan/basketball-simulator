@@ -1,14 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasketballCourtComponent } from './cmps/basketball-court/basketball-court.component';
+import { PlayerResolver } from './resolvers/player.resolver';
+import { EditPlayerComponent } from './views/edit-player/edit-player.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
 import { PlayersIndexComponent } from './views/players-index/players-index.component';
 
 const routes: Routes = [
+    {
+        path: '',
+        component: HomePageComponent,
+        // resolve: { pet: PetResolver },
+        // canActivate: [AuthGuard],
+    },
     {
         path: 'players',
         component: PlayersIndexComponent,
         // resolve: { pet: PetResolver },
         // canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'edit',
+                component: EditPlayerComponent,
+
+            },
+            {
+                path: 'edit/:id',
+                component: EditPlayerComponent,
+                resolve: {player: PlayerResolver}
+            },
+        ],
     },
     {
         path: 'court',
@@ -16,6 +37,7 @@ const routes: Routes = [
         // resolve: { pet: PetResolver },
         // canActivate: [AuthGuard],
     },
+
 
     // { path: 'about', component: AboutComponent },
     // {
@@ -27,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
+    imports: [RouterModule.forRoot(routes, { useHash: true })],
     exports: [RouterModule]
 })
 export class AppRoutingModule { }

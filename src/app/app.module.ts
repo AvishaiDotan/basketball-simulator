@@ -1,6 +1,7 @@
 import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './root-app/app.component';
@@ -12,7 +13,8 @@ import { PlayerPreviewComponent } from './cmps/player-preview/player-preview.com
 import { BasketballCourtComponent } from './cmps/basketball-court/basketball-court.component';
 import { PlayersIndexComponent } from './views/players-index/players-index.component';
 import { LineUpComponent } from './cmps/line-up/line-up.component';
-
+import { EditPlayerComponent } from './views/edit-player/edit-player.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -22,12 +24,15 @@ import { LineUpComponent } from './cmps/line-up/line-up.component';
         BasketballCourtComponent,
         PlayersIndexComponent,
         LineUpComponent,
+        EditPlayerComponent,
+        HomePageComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

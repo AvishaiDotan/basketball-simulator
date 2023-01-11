@@ -1,7 +1,8 @@
 export const UtilService = {
     saveToStorage,
     loadFromStorage, 
-    getRandomNumber
+    getRandomNumber, 
+    makeId
 }
 
 function saveToStorage(key: string, value: any) {
@@ -17,3 +18,14 @@ function getRandomNumber() {
     return Math.round(Math.random() * 100)
 
 }
+
+function makeId(length = 10) {
+    let id = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    
+    for (let i = 0; i < length; i++) {
+      id += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    
+    return id;
+  }
