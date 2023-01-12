@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 
 import { Player, User } from '../models/index';
 
@@ -35,10 +35,23 @@ export class UserService {
             console.log('error');  
         }
 
-        this._userDB$.next(user)   
+        this._userDB$.next(user)        
     }
 
     isPosTaken(pos: String, players: Player[]) {
         return players.some(player => player.pos === pos)
+    }
+
+    async removePlayerFromLineup(playerId: string) {
+
+        const user = this._userDB$.value
+        const {players} = user
+
+        const toRemoveIdx = players.findIndex(({id}) => id === playerId)
+        
+        players.splice(toRemoveIdx, 1)
+
+        user.players = players
+        this._userDB$.next(user)
     }
 }

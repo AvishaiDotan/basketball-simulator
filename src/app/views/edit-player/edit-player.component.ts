@@ -47,7 +47,6 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
 
     savePlayer(player: any) {
         this.playerToEdit = {...this.playerToEdit, ...player}
-        console.log(this.playerToEdit);
         
         this.playersService.savePlayer(this.playerToEdit)
         this.router.navigateByUrl('players')

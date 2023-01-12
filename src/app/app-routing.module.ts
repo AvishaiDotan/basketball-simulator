@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BasketballCourtComponent } from './cmps/basketball-court/basketball-court.component';
 import { PlayerResolver } from './resolvers/player.resolver';
+import { UserResolver } from './resolvers/user.resolver';
 import { EditPlayerComponent } from './views/edit-player/edit-player.component';
 import { HomePageComponent } from './views/home-page/home-page.component';
 import { PlayersIndexComponent } from './views/players-index/players-index.component';
@@ -16,13 +17,13 @@ const routes: Routes = [
     {
         path: 'players',
         component: PlayersIndexComponent,
+        resolve: {user: UserResolver},
         // resolve: { pet: PetResolver },
         // canActivate: [AuthGuard],
         children: [
             {
                 path: 'edit',
                 component: EditPlayerComponent,
-
             },
             {
                 path: 'edit/:id',
@@ -34,8 +35,7 @@ const routes: Routes = [
     {
         path: 'court',
         component: BasketballCourtComponent,
-        // resolve: { pet: PetResolver },
-        // canActivate: [AuthGuard],
+
     },
 
 

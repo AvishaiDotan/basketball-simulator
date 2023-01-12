@@ -9,11 +9,17 @@
     transform: translateY(-4px);
     background-color: #cbcbcb;
     border-inline-end: 5px solid $clrPrimaryDarker;
-
-    animation: movingBorder 10s infinite;
-
     height: calc(100vh - 124px);
     overflow-y: auto;
+
+    h2 {
+        background-color: $clr2;
+        color: $clr-2;
+        text-align: center;
+        font-size: rem(20px);
+        padding-block: 10px;
+        font-family: Roboto-regular;
+    }
 
     .list-actions {
         display: flex;
@@ -44,9 +50,9 @@
         .filter-actions {
             display: flex;
             justify-content: center;
-            margin-block: 10px;
+            margin-block-start: 10px;
             padding: 10px;
-            background-color: currentcolor;
+            background-color: $clr2;;
         }
     }
 

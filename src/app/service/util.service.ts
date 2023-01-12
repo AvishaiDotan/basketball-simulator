@@ -14,10 +14,10 @@ function loadFromStorage(key: string): any {
     return JSON.parse(data as any)
 }
 
-function getRandomNumber() {
-    return Math.round(Math.random() * 100)
-
+function getRandomNumber(n = 100) {
+    return Math.round(Math.random() * n)
 }
+
 
 function makeId(length = 10) {
     let id = '';

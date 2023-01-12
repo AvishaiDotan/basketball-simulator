@@ -63,6 +63,23 @@ export class PlayersService {
         }
     }
 
+    getRandomLineup(): Player[] {
+        const randomLineup: Player[] = []
+        const players = this._playersDB$.value
+
+        while (randomLineup) {
+            const player: Player = players[UtilService.getRandomNumber(200)]
+        
+            randomLineup.push(player)
+
+        }
+
+        console.log(randomLineup);
+        
+
+        return randomLineup
+    }
+
     savePlayer(player: Player) {
         if (player.id) this.put(player)
         else this.post(player)
@@ -71,7 +88,7 @@ export class PlayersService {
     put(player: Player) {
         const players = UtilService.loadFromStorage(this.playersKey)
 
-        const playerIdx = players.findIndex(({id}: any) => id === player.id)
+        const playerIdx = players.findIndex(({ id }: any) => id === player.id)
         if (playerIdx < 0) return
 
         players[playerIdx] = player
@@ -83,9 +100,8 @@ export class PlayersService {
     post(player: Player) {
         player.id = UtilService.makeId()
 
-
         const pic = `https://randomuser.me/api/portraits/men/1.jpg`
-        player.picture = {large: pic, medium: pic, thumbnail: pic}
+        player.picture = { large: pic, medium: pic, thumbnail: pic }
         player.city = 'Jerusalem'
 
         const players = UtilService.loadFromStorage(this.playersKey)
@@ -93,6 +109,9 @@ export class PlayersService {
 
         UtilService.saveToStorage(this.playersKey, players)
         this._playersDB$.next(players)
+    }
+
+    deletePlayer(playerId: string) {
     }
 
     public loadPlayers() {
@@ -139,4 +158,6 @@ export class PlayersService {
         this._playersFilter$.next(updatedFilter)
         this.query()
     }
+
+
 }

@@ -1,4 +1,5 @@
 <section class="players-list-wrapper">
+    
     <section class="list-actions">
         <section class="pos-filter">
             <div *ngFor="let posData of positionsData" (click)="setFilter('pos', posData.pos)" [ngStyle]="{color: (filter.pos === posData.pos) ? '#c19d33' : ''}">{{posData.text}}</div>
@@ -10,6 +11,8 @@
             <button (click)="setFilter('isDescending')">Sort</button>
         </div>
     </section>
+
+    <h2>Credits Left: {{leftCredits}}</h2>
 
     <div class="players-list">
         <ul>
