@@ -67,16 +67,11 @@ export class PlayersService {
         const randomLineup: Player[] = []
         const players = this._playersDB$.value
 
-        while (randomLineup) {
-            const player: Player = players[UtilService.getRandomNumber(200)]
-        
+        while (randomLineup.length < 5) {
+            const player: Player = players[UtilService.getRandomNumber(players.length - 1)]
             randomLineup.push(player)
-
-        }
-
-        console.log(randomLineup);
+        }    
         
-
         return randomLineup
     }
 

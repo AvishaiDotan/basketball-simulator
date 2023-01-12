@@ -12,7 +12,7 @@
 </section>
 <button *ngIf="isGameReady" (click)="startGame()">Start The Game</button>
 <section class="user-line-up">
-    <article *ngFor="let player of lineUp" >
+    <article *ngFor="let player of computerLineup" >
         <section *ngIf="player" class="player-card player flex column align-center">
             <h2>{{player.skillLevel}} | {{player.pos}}</h2>
             <img [src]="player.picture.large" alt="">
