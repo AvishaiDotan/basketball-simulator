@@ -63,6 +63,38 @@ export class PlayersService {
         }
     }
 
+    savePlayer(player: Player) {
+        if (player.id) this.put(player)
+        else this.post(player)
+    }
+
+    put(player: Player) {
+        const players = UtilService.loadFromStorage(this.playersKey)
+
+        const playerIdx = players.findIndex(({id}: any) => id === player.id)
+        if (playerIdx < 0) return
+
+        players[playerIdx] = player
+
+        UtilService.saveToStorage(this.playersKey, players)
+        this._playersDB$.next(players)
+    }
+
+    post(player: Player) {
+        player.id = UtilService.makeId()
+
+
+        const pic = `https://randomuser.me/api/portraits/men/1.jpg`
+        player.picture = {large: pic, medium: pic, thumbnail: pic}
+        player.city = 'Jerusalem'
+
+        const players = UtilService.loadFromStorage(this.playersKey)
+        players.push(player)
+
+        UtilService.saveToStorage(this.playersKey, players)
+        this._playersDB$.next(players)
+    }
+
     public loadPlayers() {
         return this.http.get<any>('https://randomuser.me/api/?results=1000')
     }

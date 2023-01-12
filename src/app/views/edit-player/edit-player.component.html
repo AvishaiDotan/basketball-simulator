@@ -1,7 +1,12 @@
+<section class="dark-overlay">
+
+</section>
 <section class="edit-player">
-    <form [formGroup]="form">
-        <h2>{{true ? 'Edit' : 'Add'}} Player</h2>
-        <img src="" alt="">
+    <a class="exit-action" routerLink="/players/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><span><i class="bi bi-x-lg"></i></span></a>
+    <h2>{{playerToEdit.picture.large ? 'Edit' : 'Add'}} Player</h2>
+    <img class="player-img" [src]="playerToEdit.picture.large" alt="">
+
+    <form [formGroup]="form" (ngSubmit)="savePlayer(form.value)">
 
         <label class="name" formGroupName="name" for="name">
             <input formControlName="first" name="name" id="name" placeholder="First name" />
@@ -39,12 +44,10 @@
                     <option value="F">F</option>
                     <option value="PF">PF</option>
                     <option value="C">C</option>
-
                 </select>
             </label>
-
         </section>
 
-
+        <button>{{playerToEdit.picture.large ? 'Save' : 'Add'}}</button>
     </form>
 </section>

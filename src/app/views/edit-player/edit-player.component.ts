@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Player } from 'src/app/models';
 import { PlayersService } from 'src/app/service/players.service';
@@ -14,11 +14,13 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
     
     form!: FormGroup
     playerSub!: Subscription
+    playerToEdit!: Player
 
     constructor(
         private playersService: PlayersService,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private router: Router,
     ) {}
 
 
@@ -26,22 +28,34 @@ export class EditPlayerComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.playerSub = this.route.data.subscribe(({ player }) => {
-            const PlayerToEdit = (player) ? player : this.playersService.getEmptyPlayer() as Player 
+            this.playerToEdit = (player) ? player : this.playersService.getEmptyPlayer() as Player 
+
             this.form = this.formBuilder.group({
-                gender: PlayerToEdit.gender,
-                name: this.formBuilder.group({...PlayerToEdit.name}),
-                city: PlayerToEdit.city,
-                age: PlayerToEdit.age,
-                picture: this.formBuilder.group({...PlayerToEdit.picture}),
-                id: PlayerToEdit.id,
-                skillLevel: PlayerToEdit.skillLevel,
-                pos: PlayerToEdit.pos
+                gender: this.playerToEdit.gender,
+                name: this.formBuilder.group({...this.playerToEdit.name}),
+                city: this.playerToEdit.city,
+                age: this.playerToEdit.age,
+                picture: this.formBuilder.group({...this.playerToEdit.picture}),
+                id: this.playerToEdit.id,
+                skillLevel: this.playerToEdit.skillLevel,
+                pos: this.playerToEdit.pos
             })
+
+
         })
     }
 
+    savePlayer(player: any) {
+        this.playerToEdit = {...this.playerToEdit, ...player}
+        console.log(this.playerToEdit);
+        
+        this.playersService.savePlayer(this.playerToEdit)
+        this.router.navigateByUrl('players')
+    }
 
     ngOnDestroy(): void {
         this.playerSub.unsubscribe()
     }
+
+
 }
